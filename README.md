@@ -9,3 +9,4 @@
 ## C Programming: Language Foundations - 2
 
 - use logical conditions to control the flow of a program via branch statements (if-else), repetition (for/while loop) and nesting of these structures
+- create and utilize arrays of integers and floating point numbers.
