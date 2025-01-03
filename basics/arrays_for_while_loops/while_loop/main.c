@@ -1,23 +1,28 @@
 #include <stdio.h>
 
 int main(void) {
-    int population;
-    int days = 0;
-    int infected = 1;
+    int minTemp, maxTemp, currentTemp;
 
-    // Read the total population
-    scanf("%d", &population);
+    // Read the minimum and maximum safe temperatures
+    scanf("%d %d", &minTemp, &maxTemp);
 
-    // Each day each infected person infects 2 more people, except for the first day
-    while (infected < population) {
-        if (days != 0) {
-            infected = infected * 3; // Each infected person infects 2 more people
+    while (1) {
+        // Read the current temperature
+        scanf("%d", &currentTemp);
+
+        // Check if the temperature reading is done
+        if (currentTemp == -999) {
+            break;
         }
-        days++;
-    }
 
-    // Output the number of days it takes to infect the entire population
-    printf("%d\n", days);
+        // Check if the current temperature is within the safe range
+        if (currentTemp >= minTemp && currentTemp <= maxTemp) {
+            printf("Nothing to report\n");
+        } else {
+            printf("Alert!\n");
+            break;
+        }
+    }
 
     return 0;
 }
