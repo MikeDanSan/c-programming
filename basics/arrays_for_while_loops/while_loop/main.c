@@ -1,25 +1,23 @@
 #include <stdio.h>
 
-int main(void){
+int main(void) {
+    int population;
+    int days = 0;
+    int infected = 1;
 
-    int expense = 0;
-    int totalExpense = 0;
+    // Read the total population
+    scanf("%d", &population);
 
-    while (1) {
-        if (scanf("%d", &expense) != 1) {
-            // Clear the input buffer
-            while (getchar() != '\n');
-            continue;
+    // Each day each infected person infects 2 more people, except for the first day
+    while (infected < population) {
+        if (days != 0) {
+            infected = infected * 3; // Each infected person infects 2 more people
         }
-
-        if (expense == -1) {
-            break;
-        }
-
-        totalExpense += expense;
+        days++;
     }
 
-    printf("%d\n", totalExpense);
+    // Output the number of days it takes to infect the entire population
+    printf("%d\n", days);
 
     return 0;
 }
