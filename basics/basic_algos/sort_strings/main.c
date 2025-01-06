@@ -1,30 +1,37 @@
 #include <stdio.h>
 #include <string.h>
 
-int main(void) {
-    char word[51]; // Assuming the word does not have more than 50 letters
-    scanf("%50s", word); // Read a word from the user
+// Function to sort the characters of a string
+void sort_string(char *str) {
+    int n = strlen(str);
+    for (int i = 0; i < n-1; i++) {
+        for (int j = i+1; j < n; j++) {
+            if (str[i] > str[j]) {
+                char temp = str[i];
+                str[i] = str[j];
+                str[j] = temp;
+            }
+        }
+    }
+}
 
-    int length = strlen(word);
-    int half_length = (length + 1) / 2; // Include the middle letter if there is one
-    int found_in_first_half = 0;
-    int found_in_second_half = 0;
+int main() {
+    char word[51]; // Assuming the word has no more than 50 letters
+    scanf("%50s", word);
 
-    for (int i = 0; i < length; i++) {
-        if (i < half_length && (word[i] == 't' || word[i] == 'T')) {
-            found_in_first_half = 1;
-        } else if (i >= half_length && (word[i] == 't' || word[i] == 'T')) {
-            found_in_second_half = 1;
+    sort_string(word);
+
+    int count = 0;
+    size_t len = strlen(word);
+    for (size_t i = 0; i < len - 1; i++) {
+        if (word[i] == word[i + 1]) {
+            count++;
+            while (i < len - 1 && word[i] == word[i + 1]) {
+                i++;
+            }
         }
     }
 
-    if (found_in_first_half) {
-        printf("1\n");
-    } else if (found_in_second_half) {
-        printf("2\n");
-    } else {
-        printf("-1\n");
-    }
-
+    printf("%d\n", count);
     return 0;
 }
