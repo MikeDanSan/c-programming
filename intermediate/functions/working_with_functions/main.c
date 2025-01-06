@@ -1,58 +1,35 @@
 #include <stdio.h>
 
-void convertToFeet(double meters);
-void convertToPounds(double grams);
-void convertToFahrenheit(double celsius);
+int min(int a, int b);
 
 int main(void)
 {
 
-    int nConversions;
-    scanf("%d", &nConversions);
+    int smallest;
+    int sizeOfArray;
 
-    // Loop through the number of conversions
-    for (int i = 0; i < nConversions; i++) {
-        
-        double value;
-        char conversionType;
-        
-        // Get the value and conversion type
-        scanf("%lf %c", &value, &conversionType);
+    scanf("%d", &sizeOfArray);
 
-        // Check the conversion type
-        switch (conversionType) {
-            case 'm':
-                convertToFeet(value);
-                break;
-            case 'g':
-                convertToPounds(value);
-                break;
-            case 'c':
-                convertToFahrenheit(value);
-                break;
-            default:
-                break;
-        }
-
+    // loop to get the elements of the array
+    int array[sizeOfArray];
+    for (int i = 0; i < sizeOfArray; i++)
+    {
+        scanf("%d", &array[i]);
     }
+
+    // loop to get the smallest element of the array
+    smallest = array[0];
+    for (int i = 1; i < sizeOfArray; i++)
+    {
+        smallest = min(smallest, array[i]);
+    }
+
+    printf("%d\n", smallest);
 
     return 0;
 }
 
-// 1 meter = 3.2808 feet;
-void convertToFeet(double meters) {
-    double feet = meters * 3.2808;
-    printf("%.6f ft\n", feet);
-}
-    
-// 1 gram = 0.002205 pounds;
-void convertToPounds(double grams) {
-    double pounds = grams * 0.002205;
-    printf("%.6f lbs\n", pounds);
-}
-
-// temperature in degrees Fahrenheit = 32 + 1.8 × temperature in degrees Celsius.
-void convertToFahrenheit(double celsius) {
-    double fahrenheit = 32 + 1.8 * celsius;
-    printf("%.6f f\n", fahrenheit);
+int min(int a, int b)
+{
+    return a < b ? a : b;
 }
