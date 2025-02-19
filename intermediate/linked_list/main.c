@@ -16,6 +16,8 @@ struct digit * searchNumber(struct digit * start, int number);
 int changeThrees(struct digit * start);
 struct digit * reverseNumber(struct digit * start);
 struct digit * insertAtFront(struct digit * start, struct digit * newptr);
+struct digit * sortedCopy(struct digit * start);
+struct digit * sortedInsert(struct digit * start, struct digit * newDigptr);
 
 int main(void) {
     struct digit *start;
@@ -59,7 +61,7 @@ int main(void) {
     
     freeNumber(start);
     freeNumber(backwards);
-    freeNumber(sortedCopy);
+    freeNumber(sorted);
     return 0;
 }
 
@@ -175,3 +177,42 @@ struct digit * reverseNumber(struct digit * start) {
     }
     return(bstart);
 }
+
+struct digit * sortedInsert(struct digit * start, struct digit * newDigptr) {
+    struct digit * ptr = start;
+    struct digit * prev = NULL;
+
+    while (ptr != NULL && ptr->num < newDigptr->num) {
+        prev = ptr;
+        ptr = ptr->next;
+    }
+
+    if (prev == NULL) {
+        newDigptr->next = start;
+        start = newDigptr;
+    } else {
+        prev->next = newDigptr;
+        newDigptr->next = ptr;
+    }
+
+    return start;
+}
+
+struct digit * sortedCopy(struct digit * start) {
+    struct digit * ptr = start;
+    struct digit * sortedStart = NULL;
+    struct digit * newdigit;
+
+    if (start != NULL) {
+        sortedStart = createDigit(ptr->num);
+        ptr = ptr->next;
+    }
+
+    while (ptr != NULL) {
+        newdigit = createDigit(ptr->num);
+        sortedStart = sortedInsert(sortedStart, newdigit);
+        ptr = ptr->next;
+    }
+    return(sortedStart);
+}
+
