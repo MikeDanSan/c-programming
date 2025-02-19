@@ -18,25 +18,34 @@ struct digit * reverseNumber(struct digit * start);
 struct digit * insertAtFront(struct digit * start, struct digit * newptr);
 struct digit * sortedCopy(struct digit * start);
 struct digit * sortedInsert(struct digit * start, struct digit * newDigptr);
+int countRedun(struct digit * start);
 
 int main(void) {
     struct digit *start;
-    struct digit *backwards;
-    struct digit *sorted;
+    // struct digit *backwards;
+    // struct digit *sorted;
     // struct digit *ptr;
     // int searchNum = 5;
 
     
     start = readNumber();
-    printf("The number ");
-    printNumber(start);
+    // printf("The number ");
+    // printNumber(start);
 
     // reverse the number
-    backwards = reverseNumber(start);
-    printNumber(backwards);
+    // backwards = reverseNumber(start);
+    // printNumber(backwards);
 
-    sorted = sortedCopy(start);
-    printNumber(sorted);
+    // Sort the number
+    // sorted = sortedCopy(start);
+    // printNumber(sorted);
+
+    // Count the number of redunant digits
+    printf("The number ");
+    printNumber(start);
+    printf("contains %d redundant digits.\n", countRedun(start));
+
+
 
     // Change all 3s to 9s
     // printf("was modified in %d places.\n", changeThrees(start));
@@ -57,11 +66,9 @@ int main(void) {
     // else
     //     printf("is not divisible by 3.\n");
     
-    
-    
     freeNumber(start);
-    freeNumber(backwards);
-    freeNumber(sorted);
+    // freeNumber(backwards);
+    // freeNumber(sorted);
     return 0;
 }
 
@@ -216,3 +223,21 @@ struct digit * sortedCopy(struct digit * start) {
     return(sortedStart);
 }
 
+int countRedun(struct digit * start) {  
+    struct digit * ptr = start;
+    struct digit * ptr2;
+    int count = 0;
+
+    while (ptr != NULL) {
+        ptr2 = ptr->next;
+        while (ptr2 != NULL) {
+            if (ptr->num == ptr2->num) {
+                count++;
+                break; // Move to the next digit in the outer loop after finding a redundancy
+            }
+            ptr2 = ptr2->next;
+        }
+        ptr = ptr->next;
+    }
+    return count;
+}
