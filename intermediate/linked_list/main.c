@@ -14,9 +14,13 @@ struct digit *readNumber(void);
 int divisibleByThree(struct digit *start);
 struct digit * searchNumber(struct digit * start, int number);
 int changeThrees(struct digit * start);
+struct digit * reverseNumber(struct digit * start);
+struct digit * insertAtFront(struct digit * start, struct digit * newptr);
 
 int main(void) {
     struct digit *start;
+    struct digit *backwards;
+    struct digit *sorted;
     // struct digit *ptr;
     // int searchNum = 5;
 
@@ -25,11 +29,17 @@ int main(void) {
     printf("The number ");
     printNumber(start);
 
+    // reverse the number
+    backwards = reverseNumber(start);
+    printNumber(backwards);
 
-    printf("was modified in %d places.\n", changeThrees(start));
+    sorted = sortedCopy(start);
+    printNumber(sorted);
 
-    printf("The new number is ");
-    printNumber(start);
+    // Change all 3s to 9s
+    // printf("was modified in %d places.\n", changeThrees(start));
+    // printf("The new number is ");
+    // printNumber(start);
 
     // Search for a number
     // ptr = searchNumber(start, searchNum);
@@ -48,6 +58,8 @@ int main(void) {
     
     
     freeNumber(start);
+    freeNumber(backwards);
+    freeNumber(sortedCopy);
     return 0;
 }
 
@@ -138,4 +150,28 @@ int changeThrees(struct digit * start) {
 
     return count;
 
+}
+
+struct digit * insertAtFront(struct digit * start, struct digit * newptr) {
+    newptr->next = start;
+    return(newptr);
+}
+
+struct digit * reverseNumber(struct digit * start) {
+
+    struct digit * ptr = start;
+    struct digit * bstart = NULL;
+    struct digit * newdigit;
+
+    if (start != NULL) {
+        bstart = createDigit(start->num);
+        ptr = ptr->next;
+    }
+    
+    while (ptr != NULL) {
+        newdigit = createDigit(ptr->num);
+        bstart = insertAtFront(bstart, newdigit);
+        ptr = ptr->next;
+    }
+    return(bstart);
 }
