@@ -1,0 +1,1 @@
+void printTemp(double *temps, int numOfTemps);
